@@ -5,6 +5,10 @@ import 'package:regisse_business/constants/app_constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:regisse_business/models/service.dart';
 import 'package:regisse_business/widgets/service_card.dart';
+//import 'package:regisse_business/widgets/animated_cube.dart';
+//import 'package:regisse_business/widgets/rolling_rbs_cube.dart';
+//import 'package:regisse_business/widgets/hero_animation.dart';
+import 'package:regisse_business/widgets/advanced_cube_animation.dart';
 
 class HomeScreen extends StatelessWidget {
   final void Function(int) onNavigate;
@@ -159,6 +163,34 @@ class HomeScreen extends StatelessWidget {
       color: AppColors.background,
       child: Column(
         children: [
+            /*Column(
+            children: [
+              // Modern cube animation
+              const AnimatedCube(size: 120),
+
+              // Optional: Add a subtitle with fade-in effect
+              AnimatedOpacity(
+                duration: const Duration(seconds: 2),
+                opacity: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, bottom: 40),
+                  child: Text(
+                    'Transforming businesses through innovative technology',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      color: AppColors.textLight,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),*/
+          //const RollingRbsCube(height: 150),
+          const AdvancedCubeAnimation(size: 150),
+          const SizedBox(height: 40),
+
           Text(
             'Our Core Solutions',
             style: GoogleFonts.poppins(
