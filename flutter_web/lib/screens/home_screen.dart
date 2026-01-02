@@ -5,9 +5,6 @@ import 'package:regisse_business/constants/app_constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:regisse_business/models/service.dart';
 import 'package:regisse_business/widgets/service_card.dart';
-//import 'package:regisse_business/widgets/animated_cube.dart';
-//import 'package:regisse_business/widgets/rolling_rbs_cube.dart';
-//import 'package:regisse_business/widgets/hero_animation.dart';
 import 'package:regisse_business/widgets/advanced_cube_animation.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -57,9 +54,9 @@ class HomeScreen extends StatelessWidget {
           // Background Image with overlay
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
+              image: DecorationImage(
                 image: NetworkImage(
-                  'https://picsum.photos/seed/hero-business/1200/600',
+                  'https://images.pexels.com/photos/2260237/pexels-photo-2260237.jpeg',
                 ),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
@@ -157,37 +154,13 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildServicesSection(BuildContext context) {
     final services = Service.sampleServices.take(3).toList();
+    final screenWidth = MediaQuery.of(context).size.width;
     
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       color: AppColors.background,
       child: Column(
         children: [
-            /*Column(
-            children: [
-              // Modern cube animation
-              const AnimatedCube(size: 120),
-
-              // Optional: Add a subtitle with fade-in effect
-              AnimatedOpacity(
-                duration: const Duration(seconds: 2),
-                opacity: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20, bottom: 40),
-                  child: Text(
-                    'Transforming businesses through innovative technology',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      color: AppColors.textLight,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),*/
-          //const RollingRbsCube(height: 150),
           const AdvancedCubeAnimation(size: 150),
           const SizedBox(height: 40),
 
@@ -209,9 +182,12 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 50),
           
-          if (MediaQuery.of(context).size.width >= 768)
+          // RESPONSIVE SERVICES GRID
+          if (screenWidth >= 1024)
+            // Desktop - 3 columns in Row
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: services.map((service) {
                 return Expanded(
                   child: Padding(
@@ -221,17 +197,40 @@ class HomeScreen extends StatelessWidget {
                 );
               }).toList(),
             )
-          else
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 450,
-                autoPlay: true,
-                enlargeCenterPage: true,
-                viewportFraction: 0.8,
+          else if (screenWidth >= 768)
+            // Tablet - 2 columns in GridView
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                childAspectRatio: 0.85,
               ),
-              items: services.map((service) {
-                return ServiceCard(service: service);
-              }).toList(),
+              itemCount: services.length,
+              itemBuilder: (context, index) {
+                return ServiceCard(service: services[index]);
+              },
+            )
+          else
+            // Mobile - Carousel
+            SizedBox(
+              height: 450,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  height: 450,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.85,
+                ),
+                items: services.map((service) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: ServiceCard(service: service),
+                  );
+                }).toList(),
+              ),
             ),
           
           const SizedBox(height: 40),
@@ -265,6 +264,7 @@ class HomeScreen extends StatelessWidget {
       {'value': '15+', 'label': 'African Countries'},
       {'value': '99%', 'label': 'Client Satisfaction'},
     ];
+    final screenWidth = MediaQuery.of(context).size.width;
     
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
@@ -281,7 +281,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 50),
           
-          if (MediaQuery.of(context).size.width >= 768)
+          if (screenWidth >= 768)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: stats.map((stat) {
@@ -315,11 +315,13 @@ class HomeScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 30,
+                childAspectRatio: 1.2,
               ),
               itemCount: stats.length,
               itemBuilder: (context, index) {
                 final stat = stats[index];
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       stat['value']!,
@@ -386,15 +388,15 @@ class HomeScreen extends StatelessWidget {
           
           CarouselSlider(
             options: CarouselOptions(
-              height: 300,
+              height: 320,
               autoPlay: true,
               enlargeCenterPage: true,
-              viewportFraction: MediaQuery.of(context).size.width < 768 ? 0.9 : 0.7,
+              viewportFraction: MediaQuery.of(context).size.width < 768 ? 0.85 : 0.7,
             ),
             items: testimonials.map((testimonial) {
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -406,10 +408,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Container(
                       width: 80,
                       height: 80,
@@ -438,6 +439,8 @@ class HomeScreen extends StatelessWidget {
                         fontStyle: FontStyle.italic,
                         height: 1.6,
                       ),
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -457,7 +460,6 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
                 ),
               );
             }).toList(),
@@ -493,7 +495,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 40),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => onNavigate(4),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: AppColors.primary,
