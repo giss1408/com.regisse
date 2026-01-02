@@ -1,0 +1,73 @@
+regisse_business/
+├── lib/
+│   ├── main.dart
+│   ├── constants/
+│   │   └── app_constants.dart
+│   ├── models/
+│   │   ├── service.dart
+│   │   ├── blog_post.dart
+│   │   └── location.dart
+│   ├── screens/
+│   │   ├── home_screen.dart
+│   │   ├── menu_screen.dart
+│   │   ├── locations_screen.dart
+│   │   ├── blog_screen.dart
+│   │   └── contact_screen.dart
+│   ├── widgets/
+│   │   ├── navbar.dart
+│   │   ├── footer.dart
+│   │   ├── service_card.dart
+│   │   ├── blog_card.dart
+│   │   ├── location_card.dart
+│   │   └── contact_form.dart
+│   └── utils/
+│       └── responsive.dart
+├── web/
+│   ├── index.html
+│   └── assets/
+│       └── images/
+├── pubspec.yaml
+└── README.md
+
+
+📋 Prompt Template
+You are an expert front‑end developer. Generate a complete, production‑ready website for <PROJECT DESCRIPTION>. Include:
+
+1️⃣ **Overall specs**
+   - Target audience / purpose
+   - Primary pages (Home, About, Services, Blog, Contact, etc.)
+   - Desired tech stack (plain HTML/CSS/JS, Tailwind, Bootstrap, React, Vue, etc.)
+   - Accessibility and SEO basics (semantic markup, alt text, meta tags)
+
+2️⃣ **Design guidelines**
+   - Color palette (e.g., #0066FF primary, #F5F5F5 background)
+   - Typography (Google Font names, fallback fonts, heading hierarchy)
+   - Layout style (responsive grid, hero section, card layout, footer)
+   - Any brand assets (logo URL, favicon, etc.)
+
+3️⃣ **Images**
+   - Use royalty‑free placeholders from Unsplash/Pexels (provide direct URLs)
+   - Add descriptive `alt` attributes for each image
+   - Specify dimensions or aspect ratios (e.g., 1200×600 hero, 400×300 cards)
+
+4️⃣ **File structure**
+   - List the folder hierarchy (e.g., `/index.html`, `/css/style.css`, `/js/main.js`, `/images/…`)
+   - Mention where to place assets and how to reference them
+
+5️⃣ **Code output**
+   - Provide the full content of each file, wrapped in markdown fences with the correct filename (e.g., ```html\n<!DOCTYPE html>…```).
+   - Ensure the HTML is valid, the CSS is scoped (or uses a pre‑processor if requested), and the JS is modular.
+   - Include comments explaining key sections.
+
+6️⃣ **Deployment notes**
+   - Brief steps for deploying to a static host (Netlify, Vercel, GitHub Pages) or a server (Node/Express if using a framework).
+   - Recommended build commands (if applicable) and any environment variables.
+
+7️⃣ **Optional extras**
+   - Dark mode toggle
+   - Form handling (mention a service like Formspree or Netlify Forms)
+   - Performance hints (lazy‑load images, minify assets)
+
+--- 
+
+### Example Prompt (filled in)

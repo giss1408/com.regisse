@@ -1,0 +1,39 @@
+Deploy to Production:
+# 1. Clone your project
+git clone <your-repo>
+cd my_project
+
+# 2. Set up production environment
+cp .env.production.example .env.production
+# Edit .env.production with your values
+
+# 3. Build and deploy
+chmod +x deploy.sh
+./deploy.sh
+
+# 4. Check logs
+docker-compose -f docker-compose.prod.yml logs -f django
+
+# 5. Create admin user (if needed)
+docker-compose -f docker-compose.prod.yml exec django python manage.py createsuperuser
+
+Scale Services:
+# Scale Django workers
+docker-compose -f docker-compose.prod.yml up -d --scale django=3
+
+# Scale Celery workers
+docker-compose -f docker-compose.prod.yml up -d --scale celery_worker=4
+
+
+Monitor Services:
+# View logs
+docker-compose -f docker-compose.prod.yml logs -f
+
+# Check status
+docker-compose -f docker-compose.prod.yml ps
+
+# View resource usage
+docker stats
+
+# Access Django container
+docker-compose -f docker-compose.prod.yml exec django bash
